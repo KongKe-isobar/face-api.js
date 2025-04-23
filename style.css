@@ -41,6 +41,7 @@ h1 {
 
 .record-section {
     flex: 1;
+    min-width: 320px;
     max-width: 800px;
     margin: 0 auto;
     background-color: white;
@@ -49,38 +50,10 @@ h1 {
     padding: 20px;
 }
 
-.record-container {
-    max-height: 420px;
-    overflow-y: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
-
-thead {
-    background-color: #f2f2f2;
-}
-
-tr:hover {
-    background-color: #f5f5f5;
-}
-
-/* 進出場的記錄欄位不同顏色 */
-tr.entrance-record td:first-child {
-    border-left: 3px solid #2196F3;
-}
-
-tr.exit-record td:first-child {
-    border-left: 3px solid #F44336;
+#log-text {
+    font-weight: 700;
+    font-size: 64px;
+    margin-bottom: 12px;
 }
 
 .entrance {

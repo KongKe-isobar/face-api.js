@@ -22,7 +22,8 @@ const statusMessage = document.getElementById('statusMessage');
 const startTrainingBtn = document.getElementById('startTrainingBtn');
 
 // 記錄相關元素
-const recordBody = document.getElementById('recordBody');
+const logText = document.getElementById('log-text');
+const content = "";
 
 // 攝影機流和設備
 let entranceStream = null;
@@ -604,25 +605,25 @@ async function getLabeledFaceDescriptions() {
         }
 
         // 如果沒有其他選項，使用現有的labels/kong目錄
-        const label = 'kong';
-        const descriptions = [];
+        // const label = 'kong';
+        // const descriptions = [];
 
-        for (let i = 1; i <= 3; i++) {
-            try {
-                const img = await faceapi.fetchImage(`/labels/kong/${i}.jpg`);
-                const detection = await faceapi.detectSingleFace(img)
-                    .withFaceLandmarks()
-                    .withFaceDescriptor();
+        // for (let i = 1; i <= 3; i++) {
+        //     try {
+        //         const img = await faceapi.fetchImage(`/labels/kong/${i}.jpg`);
+        //         const detection = await faceapi.detectSingleFace(img)
+        //             .withFaceLandmarks()
+        //             .withFaceDescriptor();
 
-                if (detection) {
-                    descriptions.push(detection.descriptor);
-                }
-            } catch (e) {
-                console.log(`無法載入 kong 的第 ${i} 張照片`);
-            }
-        }
+        //         if (detection) {
+        //             descriptions.push(detection.descriptor);
+        //         }
+        //     } catch (e) {
+        //         console.log(`無法載入 kong 的第 ${i} 張照片`);
+        //     }
+        // }
 
-        return [new faceapi.LabeledFaceDescriptors(label, descriptions)];
+        // return [new faceapi.LabeledFaceDescriptors(label, descriptions)];
     }
 }
 
@@ -676,10 +677,7 @@ function startEntranceDetection() {
                             };
 
                             // 顯示進場通知
-                            showEntranceNotification(personName);
-
-                            // 添加進場記錄
-                            addRecord(personName, '進場', new Date());
+                            textTypingEffect(logText, '你好', personName);
                         }
                     });
                 }
@@ -740,10 +738,7 @@ function startExitDetection() {
                             };
 
                             // 顯示出場通知
-                            showExitNotification(personName);
-
-                            // 添加出場記錄
-                            addRecord(personName, '出場', new Date());
+                            textTypingEffect(logText, '再見', personName);
                         }
                     });
                 }
@@ -754,52 +749,18 @@ function startExitDetection() {
     }, 100);
 }
 
-// 顯示進場通知
-function showEntranceNotification(personName) {
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString();
-    entranceNotification.textContent = `歡迎光臨 ${personName}！ (${timeStr})`;
-    entranceNotification.classList.add('show');
+function textTypingEffect(element, prefix, text, i = 0) {
+    const content = `${prefix}，${text}！`;
 
-    // 5秒後隱藏通知
-    setTimeout(() => {
-        entranceNotification.classList.remove('show');
-    }, 5000);
-}
-
-// 顯示出場通知
-function showExitNotification(personName) {
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString();
-    exitNotification.textContent = `再見 ${personName}！ (${timeStr})`;
-    exitNotification.classList.add('show');
-
-    // 5秒後隱藏通知
-    setTimeout(() => {
-        exitNotification.classList.remove('show');
-    }, 5000);
-}
-
-// 添加進出場記錄
-function addRecord(personName, action, time) {
-    const record = { personName, action, time };
-    records.push(record);
-
-    // 添加到表格
-    const row = document.createElement('tr');
-    row.className = action === '進場' ? 'entrance-record' : 'exit-record';
-
-    const timeStr = time.toLocaleTimeString();
-    row.innerHTML = `
-        <td>${personName}</td>
-        <td>${action}</td>
-        <td>${timeStr}</td>
-    `;
-
-    // 插入到表格的最前面
-    if (recordBody.firstChild) {
-        recordBody.insertBefore(row, recordBody.firstChild);
-    } else {
-        recordBody.appendChild(row);
+    if (i === 0) {
+        element.textContent = "";
     }
+
+    element.textContent += content[i];
+
+    if (i === content.length - 1) {
+        return;
+    }
+
+    setTimeout(() => textTypingEffect(element, prefix, text, i + 1), 50)
 }
