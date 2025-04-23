@@ -32,7 +32,6 @@ let videoDevices = [];
 // 人臉辨識相關
 let faceMatcher = null;
 let capturedImages = [];
-let isTrainingMode = false; // 預設為訓練模式
 const MAX_PHOTOS = 3; // 每人最多拍攝照片數
 
 // 進出場記錄
@@ -347,9 +346,6 @@ function setupEventListeners() {
             // 儲存圖片到伺服器（使用fetch API）
             await saveImagesToServer();
 
-            // 訓練完成後切換到識別模式
-            isTrainingMode = false;
-
             // 載入標籤化的人臉描述符並創建 faceMatcher
             const labeledDescriptors = await getLabeledFaceDescriptions();
             faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.6);
@@ -633,11 +629,6 @@ async function getLabeledFaceDescriptions() {
 // 開始進場人臉偵測循環
 function startEntranceDetection() {
     setInterval(async () => {
-        // 檢查是否處於訓練模式
-        if (isTrainingMode || !faceMatcher) {
-            return;
-        }
-
         // 清除畫布
         const ctx = entranceCanvas.getContext('2d');
         ctx.clearRect(0, 0, entranceCanvas.width, entranceCanvas.height);
@@ -702,11 +693,6 @@ function startEntranceDetection() {
 // 開始出場人臉偵測循環
 function startExitDetection() {
     setInterval(async () => {
-        // 檢查是否處於訓練模式
-        if (isTrainingMode || !faceMatcher) {
-            return;
-        }
-
         // 清除畫布
         const ctx = exitCanvas.getContext('2d');
         ctx.clearRect(0, 0, exitCanvas.width, exitCanvas.height);
