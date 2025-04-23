@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人臉辨識</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 確保 face-api.js 正確載入 -->
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <!-- 確保 script.js 在 face-api.js 載入後執行 -->
+    <script defer src="./script.js"></script>
+</head>
+
+<body>
+    <h1>人臉辨識系統</h1>
+    
+    <!-- 新增攝影機選擇功能 -->
+    <div class="camera-select-container">
+        <label for="cameraSelect">選擇攝影機：</label>
+        <select id="cameraSelect" class="camera-select"></select>
+        <button id="switchCameraBtn">切換攝影機</button>
+    </div>
+    
+    <div class="container">
+        <video id="video" width="720" height="560" autoplay muted playsinline></video>
+        <canvas id="canvas" width="720" height="560"></canvas>
+    </div>
+    
+    <!-- 新增拍照控制區域 -->
+    <div class="controls">
+        <div class="photo-control">
+            <input type="text" id="personName" placeholder="請輸入姓名">
+            <button id="captureBtn">拍照儲存</button>
+            <span id="photoCounter">0/3</span>
+        </div>
+        <div class="status" id="statusMessage"></div>
+        <button id="startTrainingBtn">開始訓練</button>
+    </div>
+    
+    <!-- 預覽區域 -->
+    <div class="preview-container">
+        <div class="preview-images" id="previewImages"></div>
+    </div>
+</body>
+
+</html>

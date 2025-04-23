@@ -1,0 +1,181 @@
+body {
+    margin: 0;
+    padding: 20px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Microsoft JhengHei', Arial, sans-serif;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* 新增攝影機選擇容器樣式 */
+.camera-select-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 720px;
+}
+
+.camera-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+#switchCameraBtn {
+    padding: 8px 15px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#switchCameraBtn:hover {
+    background-color: #0b7dda;
+}
+
+.container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+video {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 新增拍照控制樣式 */
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+    width: 100%;
+    max-width: 720px;
+}
+
+.photo-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#personName {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+#captureBtn, #startTrainingBtn {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#captureBtn:hover, #startTrainingBtn:hover {
+    background-color: #45a049;
+}
+
+#captureBtn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#startTrainingBtn {
+    background-color: #2196F3;
+    margin-top: 10px;
+}
+
+#startTrainingBtn:hover {
+    background-color: #0b7dda;
+}
+
+#photoCounter {
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 40px;
+}
+
+.status {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* 圖片預覽區域 */
+.preview-container {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 720px;
+}
+
+.preview-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.preview-image {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-image .delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255,0,0,0.7);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+}
