@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>人臉辨識</title>
+    <title>進出場人臉辨識系統</title>
     <link rel="stylesheet" href="style.css">
     <!-- 確保 face-api.js 正確載入 -->
     <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
@@ -13,34 +13,76 @@
 </head>
 
 <body>
-    <h1>人臉辨識系統</h1>
-    
-    <!-- 新增攝影機選擇功能 -->
-    <div class="camera-select-container">
-        <label for="cameraSelect">選擇攝影機：</label>
-        <select id="cameraSelect" class="camera-select"></select>
-        <button id="switchCameraBtn">切換攝影機</button>
+    <h1>進出場人臉辨識系統</h1>
+
+    <div class="cameras-container">
+        <!-- 進場攝影機區域 -->
+        <div class="camera-section entrance">
+            <h2>進場攝影機</h2>
+            <div class="camera-select-container">
+                <select id="entranceCameraSelect" class="camera-select"></select>
+                <button id="entranceSwitchBtn">切換攝影機</button>
+            </div>
+            <div class="container">
+                <video id="entranceVideo" width="480" height="360" autoplay muted playsinline></video>
+                <canvas id="entranceCanvas" width="480" height="360"></canvas>
+            </div>
+            <div class="notification-container">
+                <div id="entranceNotification" class="notification"></div>
+            </div>
+        </div>
+
+        <!-- 出場攝影機區域 -->
+        <div class="camera-section exit">
+            <h2>出場攝影機</h2>
+            <div class="camera-select-container">
+                <select id="exitCameraSelect" class="camera-select"></select>
+                <button id="exitSwitchBtn">切換攝影機</button>
+            </div>
+            <div class="container">
+                <video id="exitVideo" width="480" height="360" autoplay muted playsinline></video>
+                <canvas id="exitCanvas" width="480" height="360"></canvas>
+            </div>
+            <div class="notification-container">
+                <div id="exitNotification" class="notification"></div>
+            </div>
+        </div>
+
+        <!-- 進出場記錄 -->
+        <div class="record-section log">
+            <h2>進出場記錄</h2>
+            <div class="record-container">
+                <table id="recordTable">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>動作</th>
+                            <th>時間</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recordBody">
+                        <!-- 記錄將在這裡動態添加 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    
-    <div class="container">
-        <video id="video" width="720" height="560" autoplay muted playsinline></video>
-        <canvas id="canvas" width="720" height="560"></canvas>
-    </div>
-    
-    <!-- 新增拍照控制區域 -->
-    <div class="controls">
+
+    <!-- 訓練區域 -->
+    <div class="training-section">
+        <h2>人臉訓練區</h2>
         <div class="photo-control">
             <input type="text" id="personName" placeholder="請輸入姓名">
             <button id="captureBtn">拍照儲存</button>
             <span id="photoCounter">0/3</span>
         </div>
-        <div class="status" id="statusMessage"></div>
+        <div id="statusMessage" class="status"></div>
         <button id="startTrainingBtn">開始訓練</button>
-    </div>
-    
-    <!-- 預覽區域 -->
-    <div class="preview-container">
-        <div class="preview-images" id="previewImages"></div>
+
+        <!-- 預覽區域 -->
+        <div class="preview-container">
+            <div id="previewImages" class="preview-images"></div>
+        </div>
     </div>
 </body>
 
